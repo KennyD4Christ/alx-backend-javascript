@@ -1,5 +1,5 @@
 // Function to sign up a user
-function signUpUser(firstName, lastName) {
+export default function signUpUser(firstName, lastName) {
   return new Promise((resolve) => {
     resolve({
       firstName,
@@ -7,5 +7,3 @@ function signUpUser(firstName, lastName) {
     });
   });
 }
-
-export default signUpUser;
