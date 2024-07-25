@@ -41,7 +41,10 @@ export default class Car {
   }
 
   [cloneSymbol]() {
-    return new Car(this.brand, this.motor, this.color);
+    return Object.create(Object.getPrototypeOf(this), {
+      ...Object.getOwnPropertyDescriptors(this),
+      [Symbol.iterator]: { value: this[Symbol.iterator] },
+    });
   }
 
   cloneCar() {
