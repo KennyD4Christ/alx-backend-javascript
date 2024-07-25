@@ -41,10 +41,11 @@ export default class Car {
   }
 
   [cloneSymbol]() {
-    return Object.create(Object.getPrototypeOf(this), {
-      ...Object.getOwnPropertyDescriptors(this),
-      [Symbol.iterator]: { value: this[Symbol.iterator] },
-    });
+    const clone = Object.create(Object.getPrototypeOf(this));
+    clone._brand = undefined;
+    clone._motor = undefined;
+    clone._color = undefined;
+    return clone;
   }
 
   cloneCar() {
