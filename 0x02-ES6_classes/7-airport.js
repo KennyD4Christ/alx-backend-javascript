@@ -27,6 +27,10 @@ export default class Airport {
   }
 
   toString() {
-    return `Airport code: ${this.code}`;
+    return `[object ${this.code}]`;
+  }
+
+  [Symbol.for('nodejs.util.inspect.custom')]() {
+    return `Airport [${this.code}] { _name: '${this.name}', _code: '${this.code}' }`;
   }
 }
