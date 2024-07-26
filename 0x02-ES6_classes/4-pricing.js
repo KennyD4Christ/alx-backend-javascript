@@ -7,25 +7,25 @@ export default class Pricing {
   }
 
   get amount() {
-    return this.amount;
+    return this._amount;
   }
 
   set amount(value) {
     if (typeof value !== 'number') {
       throw new TypeError('Amount must be a number');
     }
-    this.amount = value;
+    this._amount = value;
   }
 
   get currency() {
-    return this.currency;
+    return this._currency;
   }
 
   set currency(value) {
     if (!(value instanceof Currency)) {
       throw new TypeError('Currency must be an instance of Currency');
     }
-    this.currency = value;
+    this._currency = value;
   }
 
   displayFullPrice() {
