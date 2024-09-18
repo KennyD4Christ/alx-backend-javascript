@@ -6,11 +6,12 @@ process.stdin.on('data', (data) => {
   const name = data.toString().trim();
   console.log(`Your name is: ${name}`);
 
-  // If input is piped, display the closing message
+  // For piped input, display the closing message
   if (!process.stdin.isTTY) {
     console.log('This important software is now closing');
   }
 
-  // Exit the process after user input in both interactive and piped modes
-  process.exit();
+  // Close the stdin stream to end the process properly
+  process.stdin.end();
 });
+
