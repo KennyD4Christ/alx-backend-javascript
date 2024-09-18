@@ -8,7 +8,7 @@ const PORT = 1245;
 
 app.get('/', (req, res) => {
   res.type('text/plain');
-  res.send('Hello Holberton School!\n');
+  res.send('Hello Holberton School!');
 });
 
 app.get('/students', (req, res) => {
@@ -35,6 +35,7 @@ app.get('/students', (req, res) => {
     .then(() => {
       // Restore original console.log
       console.log = originalLog;
+      buffer = buffer.trim();
       res.send(`This is the list of our students\n${buffer}`);
     })
     .catch(() => {
@@ -45,7 +46,6 @@ app.get('/students', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
 });
 
 module.exports = app;
