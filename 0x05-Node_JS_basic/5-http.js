@@ -10,10 +10,13 @@ const PORT = 1245;
 const app = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const { pathname } = parsedUrl;
+  // Use a temporary buffer to capture the output
+  let buffer = '';
 
   if (pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello Holberton School!\n');
+    buffer = buffer.trim();
+    res.end('Hello Holberton School!');
   } else if (pathname === '/students') {
     const filePath = process.argv[2];
     if (!filePath || !fs.existsSync(filePath)) {
@@ -23,9 +26,6 @@ const app = http.createServer((req, res) => {
     }
 
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-    // Use a temporary buffer to capture the output
-    let buffer = '';
 
     // Override console.log to capture output
     const originalLog = console.log;
@@ -38,6 +38,7 @@ const app = http.createServer((req, res) => {
       .then(() => {
         // Restore original console.log
         console.log = originalLog;
+	buffer = buffer.trim();
         res.end(`This is the list of our students\n${buffer}`);
       })
       .catch(() => {
@@ -54,7 +55,6 @@ const app = http.createServer((req, res) => {
 
 // Start listening on the specified port
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
 });
 
 module.exports = app;
