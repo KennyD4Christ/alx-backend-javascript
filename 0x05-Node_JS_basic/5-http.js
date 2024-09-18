@@ -38,7 +38,7 @@ const app = http.createServer((req, res) => {
       .then(() => {
         // Restore original console.log
         console.log = originalLog;
-	buffer = buffer.trim();
+        buffer = buffer.trim();
         res.end(`This is the list of our students\n${buffer}`);
       })
       .catch(() => {
