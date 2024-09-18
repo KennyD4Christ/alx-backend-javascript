@@ -4,7 +4,7 @@ const app = express();
 const PORT = 1245;
 
 app.get('/', (req, res) => {
-  res.send('Hello Holberton School!\n');
+  res.send('Hello Holberton School!');
 });
 
 app.use((req, res) => {
@@ -12,14 +12,14 @@ app.use((req, res) => {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Error</title>
+  <meta charset="utf-8">
+  <title>Error</title>
 </head>
 <body>
-<pre>Cannot GET ${req.originalUrl}</pre>
+  <pre>Cannot GET ${req.originalUrl}</pre>
 </body>
 </html>
-  `);
+  `.trim()); // Use trim() to remove extra spaces and newlines
 });
 
 app.listen(PORT, () => {
