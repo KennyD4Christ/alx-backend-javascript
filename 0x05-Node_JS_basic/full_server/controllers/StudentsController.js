@@ -37,17 +37,20 @@ class StudentsController {
     }
 
     if (major !== 'CS' && major !== 'SWE') {
-      res.status(500).send('Major parameter must be CS or SWE');
-      return;
+      return res.status(400).send('Major parameter must be CS or SWE');
     }
 
     try {
       const studentsByField = await readDatabase(filePath);
-      const list = studentsByField[major] ? studentsByField[major].join(', ') : '';
-      res.status(200).send(`List: ${list}`);
-    } catch (error) {
-      res.status(500).send('Cannot load the database');
+      const list = studentsByField[major];
+
+    if (!list || list.length === 0) {
+      return res.status(404).send(`No students found for major: ${major}`);
     }
+
+    res.status(200).send(`List: ${list.join(', ')}`);
+  } catch (error) {
+    res.status(500).send('Cannot load the database');
   }
 }
 

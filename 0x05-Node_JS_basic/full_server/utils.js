@@ -1,7 +1,9 @@
 import fs from 'fs/promises';
+import path from 'path';
 
 async function readDatabase(filePath) {
   try {
+    await fs.access(filePath);
     const data = await fs.readFile(filePath, 'utf-8');
     const lines = data.trim().split('\n').filter((line) => line.length > 0);
 
