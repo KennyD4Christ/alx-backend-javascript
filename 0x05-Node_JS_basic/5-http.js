@@ -19,13 +19,15 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!');
   } else if (pathname === '/students') {
     const filePath = process.argv[2];
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+
+    // If file path does not exist, add error message to buffer
     if (!filePath || !fs.existsSync(filePath)) {
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Cannot load the database\n');
+      buffer = 'Cannot load the database';
+      buffer = buffer.trim();
+      res.end(`This is the list of our students\n${buffer}`);
       return;
     }
-
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
 
     // Override console.log to capture output
     const originalLog = console.log;
@@ -44,8 +46,9 @@ const app = http.createServer((req, res) => {
       .catch(() => {
         // Restore original console.log
         console.log = originalLog;
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end('Cannot load the database\n');
+        buffer = 'Cannot load the database';
+        buffer = buffer.trim();
+        res.end(`This is the list of our students\n${buffer}`);
       });
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
