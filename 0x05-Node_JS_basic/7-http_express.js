@@ -14,15 +14,18 @@ app.get('/', (req, res) => {
 app.get('/students', (req, res) => {
   const filePath = process.argv[2];
 
-  if (!filePath || !fs.existsSync(filePath)) {
-    res.status(500).type('text/plain').send('Cannot load the database\n');
-    return;
-  }
-
   res.type('text/plain');
 
   // Use a temporary buffer to capture the output
   let buffer = '';
+
+  // If the file path doesn't exist, append error message to buffer
+  if (!filePath || !fs.existsSync(filePath)) {
+    buffer = 'Cannot load the database';
+    buffer = buffer.trim();
+    res.send(`This is the list of our students\n${buffer}`);
+    return;
+  }
 
   // Override console.log to capture output
   const originalLog = console.log;
@@ -41,7 +44,9 @@ app.get('/students', (req, res) => {
     .catch(() => {
       // Restore original console.log
       console.log = originalLog;
-      res.status(500).type('text/plain').send('Cannot load the database\n');
+      buffer = 'Cannot load the database';
+      buffer = buffer.trim();
+      res.send(`This is the list of our students\n${buffer}`);
     });
 });
 
