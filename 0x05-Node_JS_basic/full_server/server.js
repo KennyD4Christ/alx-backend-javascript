@@ -4,7 +4,7 @@ import router from './routes/index';
 const app = express();
 const PORT = 1245;
 
-app.use(router);
+app.use('/', router);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
