@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('./api.js'); // Ensure this points to your api.js file
+const app = require('./api');
 
 chai.use(chaiHttp);
 
