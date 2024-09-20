@@ -3,13 +3,14 @@ const chaiHttp = require('chai-http');
 const app = require('./api');
 
 chai.use(chaiHttp);
+const { expect } = chai;
 
 describe('Index page', () => {
   it('should return the correct status code', (done) => {
     chai.request(app)
       .get('/')
       .end((err, res) => {
-        chai.expect(res).to.have.status(200);
+        expect(res).to.have.status(200);
         done();
       });
   });
@@ -18,28 +19,19 @@ describe('Index page', () => {
     chai.request(app)
       .get('/')
       .end((err, res) => {
-        chai.expect(res.text).to.equal('Welcome to the payment system');
+        expect(res.text).to.equal('Welcome to the payment system');
         done();
       });
   });
 });
 
-// New test suite for the cart page
 describe('Cart page', () => {
-  it('should return the correct status code when :id is a number', (done) => {
+  it('should return correct status code when :id is a number', (done) => {
     chai.request(app)
       .get('/cart/12')
       .end((err, res) => {
-        chai.expect(res).to.have.status(200);
-        done();
-      });
-  });
-
-  it('should return correct result when :id is a number', (done) => {
-    chai.request(app)
-      .get('/cart/12')
-      .end((err, res) => {
-        chai.expect(res.text).to.equal('Payment methods for cart 12');
+        expect(res).to.have.status(200);
+        expect(res.text).to.equal('Payment methods for cart 12');
         done();
       });
   });
@@ -48,7 +40,8 @@ describe('Cart page', () => {
     chai.request(app)
       .get('/cart/hello')
       .end((err, res) => {
-        chai.expect(res).to.have.status(404);
+        expect(res).to.have.status(404);
+        expect(res.text).to.equal('Not Found');
         done();
       });
   });

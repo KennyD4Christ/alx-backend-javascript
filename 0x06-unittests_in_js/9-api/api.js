@@ -1,24 +1,24 @@
+#!/usr/bin/env node
+
 const express = require('express');
-
 const app = express();
-
-app.listen(7865, () => {
-  console.log('API available on localhost port 7865');
-});
+const PORT = 7865;
 
 app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
-// New endpoint for GET /cart/:id
 app.get('/cart/:id(\\d+)', (req, res) => {
   const { id } = req.params;
   res.send(`Payment methods for cart ${id}`);
 });
 
-// Handle invalid cart IDs
-app.use((req, res) => {
+app.all('/cart/*', (req, res) => {
   res.status(404).send('Not Found');
 });
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`API available on localhost port ${PORT}`);
+});
+
+module.exports = app; // Export the app for testing
