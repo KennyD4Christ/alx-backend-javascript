@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+// api.js
 const express = require('express');
 const app = express();
 const PORT = 7865;
@@ -8,17 +7,19 @@ app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
+// New endpoint for cart
 app.get('/cart/:id(\\d+)', (req, res) => {
   const { id } = req.params;
   res.send(`Payment methods for cart ${id}`);
 });
 
-app.all('/cart/*', (req, res) => {
+app.use((req, res) => {
   res.status(404).send('Not Found');
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`API available on localhost port ${PORT}`);
 });
 
-module.exports = app; // Export the app for testing
+// Export the server for testing
+module.exports = server;
